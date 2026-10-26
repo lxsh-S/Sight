@@ -6,6 +6,8 @@ A hyprland app launcher written in rust. Learning rust while making something I'
 
 `Sight` is a simple hyrpland launcher that searches for application on your linux machine and let's you run whatever application you choose to from the app menu by searching or moving through with the arrow keys
 
+Sight user `relm4` with `GTK4` for it's UI :)
+
 ## Build
 
 Need rust and cargo installed to build
