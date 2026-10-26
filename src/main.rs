@@ -1,6 +1,7 @@
 use gtk::prelude::*;
 use relm4::prelude::*;
 
+#[derive(Debug)]
 enum SightInput {
     SearchChanges(String),
 }
@@ -10,7 +11,7 @@ struct Sight;
 #[relm4::component]
 impl SimpleComponent for Sight {
     type Init = ();
-    type Input = ();
+    type Input = SightInput;
     type Output = ();
 
     view! {
@@ -30,6 +31,9 @@ impl SimpleComponent for Sight {
 
                 gtk::Entry {
                     set_placeholder_text: Some("Search applications...."),
+                    connect_changed[sender] => move |entry| {
+                        sender.input(SightInput::SearchChanges(entry.text().to_string()));
+                    },
                 },
             }
         }
@@ -38,7 +42,7 @@ impl SimpleComponent for Sight {
     fn init(
         _init: Self::Init,
         _root: Self::Root,
-        _sender: ComponentSender<Self>,
+        sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
         let model = Sight;
         let widgets = view_output!();
