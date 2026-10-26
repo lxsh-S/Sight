@@ -24,6 +24,8 @@ fn main() {
             Ok(()) => println!("Sight launched: {}", &first_app.name),
             Err(error) => println!("Sight failed ot lauch: {}", error),
         }
+    } else {
+        println!("No matching apps found for: '{}' ", &query);
     }
 
     println!("Raw query : {:?}", query);
