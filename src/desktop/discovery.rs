@@ -13,6 +13,8 @@ pub fn discover_apps() -> Vec<AppEntry> {
                 return None;
             }
 
+            let id = entry.id().to_owned();
+
             let name = entry.name(&locales)?.into_owned(); // we use owned string in our
             // AppEntry
 
@@ -21,7 +23,11 @@ pub fn discover_apps() -> Vec<AppEntry> {
                 .map(|comment| comment.into_owned())
                 .unwrap_or_default(); // if description is empty we use "" in this case
 
-            Some(AppEntry { name, description })
+            Some(AppEntry {
+                id,
+                name,
+                description,
+            })
         })
         .collect()
 }

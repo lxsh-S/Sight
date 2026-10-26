@@ -15,6 +15,6 @@ fn main() {
     println!("Search results for 'zen': ");
 
     for app in results {
-        println!("{} -> {}", app.name, app.description);
+        println!("{} [{}] -> {}", app.name, app.id, app.description);
     }
 }
