@@ -1,12 +1,18 @@
 use gtk::prelude::*;
-use relm4::prelude::*;
+use relm4::{
+    gtk::{MessageType::Question, gio::FileQueryInfoFlags},
+    prelude::*,
+};
+use sight::search::search_apps;
 
 #[derive(Debug)]
 enum SightInput {
     SearchChanges(String),
 }
 
-struct Sight;
+struct Sight {
+    query: String,
+}
 
 #[relm4::component]
 impl SimpleComponent for Sight {
@@ -44,10 +50,20 @@ impl SimpleComponent for Sight {
         _root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
-        let model = Sight;
+        let model = Sight {
+            query: String::new(),
+        };
         let widgets = view_output!();
 
         ComponentParts { model, widgets }
+    }
+
+    fn update(&mut self, message: Self::Input, sender: ComponentSender<Self>) {
+        match message {
+            SightInput::SearchChanges(query) => {
+                self.query = query;
+            }
+        }
     }
 }
 
