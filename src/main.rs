@@ -3,7 +3,7 @@ use relm4::{
     gtk::{MessageType::Question, gio::FileQueryInfoFlags},
     prelude::*,
 };
-use sight::{app::AppEntry, desktop::discovery::discover_apps};
+use sight::{app::AppEntry, desktop::discovery::discover_apps, search::search_apps};
 
 #[derive(Debug)]
 enum SightInput {
@@ -64,6 +64,7 @@ impl SimpleComponent for Sight {
         match message {
             SightInput::SearchChanges(query) => {
                 self.query = query;
+                search_apps(&self.apps, &self.query);
             }
         }
     }
