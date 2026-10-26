@@ -3,7 +3,7 @@ use relm4::{
     gtk::{MessageType::Question, gio::FileQueryInfoFlags},
     prelude::*,
 };
-use sight::search::search_apps;
+use sight::{app::AppEntry, desktop::discovery::discover_apps};
 
 #[derive(Debug)]
 enum SightInput {
@@ -12,6 +12,7 @@ enum SightInput {
 
 struct Sight {
     query: String,
+    apps: Vec<AppEntry>,
 }
 
 #[relm4::component]
@@ -52,6 +53,7 @@ impl SimpleComponent for Sight {
     ) -> ComponentParts<Self> {
         let model = Sight {
             query: String::new(),
+            apps: discover_apps(),
         };
         let widgets = view_output!();
 
