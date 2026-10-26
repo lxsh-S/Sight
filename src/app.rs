@@ -2,6 +2,7 @@
 
 pub struct AppEntry {
     pub id: String,
+    pub command: Vec<String>, //
     pub name: String,
     pub description: String,
 }

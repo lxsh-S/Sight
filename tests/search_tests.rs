@@ -4,7 +4,9 @@ use sight::search::search_apps;
 #[test]
 fn finds_app_case_insensitively() {
     let apps = vec![AppEntry {
+        id: String::from("firfox.desktop"),
         name: String::from("Firefox"),
+        command: vec![String::from("firefox")],
         description: String::from("Web browser"),
     }];
 
@@ -17,7 +19,9 @@ fn finds_app_case_insensitively() {
 #[test]
 fn gives_empty_list() {
     let apps = vec![AppEntry {
+        id: String::from("firefox.desktop"),
         name: String::from("Firefox"),
+        command: vec![String::from("firefox")],
         description: String::from("Web browser"),
     }];
 

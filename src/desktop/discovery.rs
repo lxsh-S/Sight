@@ -13,7 +13,10 @@ pub fn discover_apps() -> Vec<AppEntry> {
                 return None;
             }
 
+            //it identifies the desktop entry
             let id = entry.id().to_owned();
+
+            let command = entry.parse_exec().ok()?;
 
             let name = entry.name(&locales)?.into_owned(); // we use owned string in our
             // AppEntry
@@ -25,6 +28,7 @@ pub fn discover_apps() -> Vec<AppEntry> {
 
             Some(AppEntry {
                 id,
+                command,
                 name,
                 description,
             })
