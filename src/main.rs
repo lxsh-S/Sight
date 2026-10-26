@@ -1,35 +1,53 @@
-// use sight::launch::launch_app;
-use sight::{desktop::discovery::discover_apps, launch::launch_app, search::search_apps};
-use std::io::{self};
+use gtk::prelude::*;
+use relm4::prelude::*;
+
+enum SightInput {
+    SearchChanges(String),
+}
+
+struct Sight;
+
+#[relm4::component]
+impl SimpleComponent for Sight {
+    type Init = ();
+    type Input = ();
+    type Output = ();
+
+    view! {
+        gtk::Window {
+            set_title: Some("Sight"),
+            set_default_size: (600, 400),
+
+            gtk::Box {
+                set_orientation: gtk::Orientation::Vertical,
+                set_spacing: 12,
+                set_margin_all: 24,
+
+                gtk::Label {
+                    set_label: "Sight",
+                    set_css_classes: &["title-1"],
+                },
+
+                gtk::Entry {
+                    set_placeholder_text: Some("Search applications...."),
+                },
+            }
+        }
+    }
+
+    fn init(
+        _init: Self::Init,
+        _root: Self::Root,
+        _sender: ComponentSender<Self>,
+    ) -> ComponentParts<Self> {
+        let model = Sight;
+        let widgets = view_output!();
+
+        ComponentParts { model, widgets }
+    }
+}
 
 fn main() {
-    let apps = discover_apps();
-
-    let mut query = String::new();
-    println!("Search for apps> ");
-
-    // Read user input
-    io::stdin().read_line(&mut query).unwrap();
-
-    // Result apps after search
-    let results = search_apps(&apps, &query.trim());
-
-    for app in &results {
-        println!("{} - {}", app.name, app.description);
-    }
-
-    // les run the first result
-    if let Some(first_app) = results.first() {
-        match launch_app(&first_app.command) {
-            Ok(()) => println!("Sight launched: {}", &first_app.name),
-            Err(error) => println!("Sight failed ot lauch: {}", error),
-        }
-    } else {
-        println!("No matching apps found for: '{}' ", &query);
-    }
-
-    println!("Raw query : {:?}", query);
-    println!("Trimmed query: {:}", query.trim());
-    println!("Apps discovered by sight before searching: {}", apps.len());
-    println!("Apps related to the query: {}", &results.len());
+    let app = RelmApp::new("dev.lxsh.sight");
+    app.run::<Sight>(());
 }
