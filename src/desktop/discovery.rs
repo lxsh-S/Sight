@@ -1,1 +1,25 @@
+use freedesktop_desktop_entry::{Iter, default_paths, get_languages_from_env};
 
+use crate::app::AppEntry;
+
+pub fn discover_apps() -> Vec<AppEntry> {
+    let locales = get_languages_from_env();
+
+    Iter::new(default_paths())
+        .entries(Some(&locales))
+        .filter_map(|entry| {
+            if entry.type_() != Some("Application") || entry.no_display() || entry.hidden() {
+                return None;
+            }
+
+            let name = entry.name(&locales)?.into_owned();
+
+            let description = entry
+                .comment(&locales)
+                .map(|comment| comment.into_owned())
+                .unwrap_or_default();
+
+            Some(AppEntry { name, description })
+        })
+        .collect()
+}
