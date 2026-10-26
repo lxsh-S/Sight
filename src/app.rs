@@ -1,6 +1,6 @@
 #[derive(Debug, Clone, PartialEq, Eq)]
 
-struct AppEntry {
+pub struct AppEntry {
     pub name: String,
     pub description: String,
 }
