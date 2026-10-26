@@ -1,29 +1,20 @@
-use sight::app::AppEntry;
+use sight::desktop::discovery::discover_apps;
 use sight::search::search_apps;
 
 fn main() {
-    let apps = vec![
-        AppEntry {
-            name: String::from("Firefox"),
-            description: String::from("A dumb browser!"),
-        },
-        AppEntry {
-            name: String::from("Kitty"),
-            description: String::from("A terminal emulator"),
-        },
-        AppEntry {
-            name: String::from("Slack"),
-            description: String::from("I use it for hack club"),
-        },
-    ];
+    let apps = discover_apps();
 
     println!("The number of apps Sight holds: {}", apps.len());
 
-    let query = String::from("kit");
-    let results = search_apps(&apps, &query);
-    println!("Search results for '{query}': ");
+    for app in &apps {
+        println!("{} - {}", app.name, app.description);
+    }
 
-    for app in &results {
+    let results = search_apps(&apps, "zen");
+
+    println!("Search results for 'zen': ");
+
+    for app in results {
         println!("{} -> {}", app.name, app.description);
     }
 }
