@@ -1,5 +1,5 @@
-use Sight::app::AppEntry;
-use Sight::search::search_apps;
+use sight::app::AppEntry;
+use sight::search::search_apps;
 
 fn main() {
     let apps = vec![
