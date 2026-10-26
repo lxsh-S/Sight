@@ -12,23 +12,14 @@ fn main() {
     io::stdin().read_line(&mut query).unwrap();
 
     // Result apps after search
-    let results = search_apps(&apps, &query);
+    let results = search_apps(&apps, &query.trim());
 
     for app in &results {
         println!("{} - {}", app.name, app.description);
     }
 
-    println!("query received from the user: {query}");
+    println!("Raw query : {:?}", query);
+    println!("Trimmed query: {:}", query.trim());
     println!("Apps discovered by sight before searching: {}", apps.len());
     println!("Apps related to the query: {}", &results.len());
-
-    // for app in &apps {
-    //     if app.name == "Zen Browser" {
-    //         match launch_app(&app.command) {
-    //             Ok(()) => println!("Zen launched"),
-    //             Err(error) => println!("FAiled to launch zen: {error}"),
-    //         }
-    //         break;
-    //     }
-    // }
 }
