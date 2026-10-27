@@ -75,7 +75,8 @@ impl SimpleComponent for Sight {
             label.set_hexpand_set(true);
 
             // append the label to the gtk widget
-            widgets.results_list.append(&label);
+            row_content.append(&label);
+            widgets.results_list.append(&row_content);
         }
     }
 
