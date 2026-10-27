@@ -44,12 +44,18 @@ impl SimpleComponent for Sight {
                     },
                 },
 
-                #[name(results_list)]
-                gtk::ListBox {
-                    set_selection_mode: gtk::SelectionMode::Single,
-                    connect_row_activated[sender] => move |_list, row| {
-                        sender.input(SightInput::LaunchSelected(row.index() as usize));
-                    },
+                gtk::ScrolledWindow {
+                    set_vexpand: true,
+                    set_hexpand: true,
+                    set_policy: (gtk::PolicyType::Never, gtk::PolicyType::Automatic),
+
+                    #[name(results_list)]
+                    gtk::ListBox {
+                        set_selection_mode: gtk::SelectionMode::Single,
+                        connect_row_activated[sender] => move |_list, row| {
+                            sender.input(SightInput::LaunchSelected(row.index() as usize));
+                        },
+                    }
                 }
             }
         }
