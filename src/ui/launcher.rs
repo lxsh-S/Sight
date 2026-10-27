@@ -9,6 +9,7 @@ use crate::{
 enum SightInput {
     SearchChanges(String),
     LaunchSelected(usize),
+    LaunchFirst,
 }
 
 struct Sight {
@@ -24,14 +25,16 @@ impl SimpleComponent for Sight {
     type Output = ();
 
     view! {
+        #[name(window)]
         gtk::Window {
             set_title: Some("Sight"),
-            set_default_size: (220, 340),
+            set_default_size: (500, 400),
 
             gtk::Box {
                 set_orientation: gtk::Orientation::Vertical,
                 set_spacing: 12,
                 set_margin_all: 24,
+                set_vexpand: false,
 
                 gtk::Label {
                     set_label: "Sight",
@@ -43,13 +46,15 @@ impl SimpleComponent for Sight {
                     connect_changed[sender] => move |entry| {
                         sender.input(SightInput::SearchChanges(entry.text().to_string()));
                     },
+                    connect_activate[sender] => move|_| {
+                        sender.input(SightInput::LaunchFirst);
+                    },
                 },
 
                 gtk::ScrolledWindow {
                     set_vexpand: false,
                     set_hexpand: true,
                     set_min_content_height: 0,
-                    set_max_content_height: 240,
                     set_propagate_natural_height: true,
                     set_policy: (gtk::PolicyType::Never, gtk::PolicyType::Automatic),
 
@@ -82,6 +87,11 @@ impl SimpleComponent for Sight {
             row_content.append(&label);
             widgets.results_list.append(&row_content);
         }
+
+        // by default we select the first app for ease of use
+        if let Some(row) = widgets.results_list.row_at_index(0) {
+            widgets.results_list.select_row(Some(&row));
+        }
     }
 
     fn init(
@@ -99,7 +109,7 @@ impl SimpleComponent for Sight {
         ComponentParts { model, widgets }
     }
 
-    fn update(&mut self, message: Self::Input, sender: ComponentSender<Self>) {
+    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
             SightInput::SearchChanges(query) => {
                 self.query = query;
@@ -111,6 +121,14 @@ impl SimpleComponent for Sight {
 
             SightInput::LaunchSelected(index) => {
                 if let Some(app) = self.results.get(index) {
+                    if let Err(error) = launch_app(&app.command) {
+                        eprint!("failed to lauch {}: {}", app.name, error);
+                    }
+                }
+            }
+
+            SightInput::LaunchFirst => {
+                if let Some(app) = self.results.first() {
                     if let Err(error) = launch_app(&app.command) {
                         eprint!("failed to lauch {}: {}", app.name, error);
                     }
