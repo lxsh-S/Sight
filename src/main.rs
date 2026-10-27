@@ -1,6 +1,6 @@
 use gtk::prelude::*;
 use relm4::{
-    // gtk::{MessageType::Question, gio::FileQueryInfoFlags},
+    gtk::{MessageType::Question, gio::FileQueryInfoFlags},
     prelude::*,
 };
 use sight::{app::AppEntry, desktop::discovery::discover_apps, search::search_apps};
@@ -44,12 +44,28 @@ impl SimpleComponent for Sight {
                     },
                 },
 
-                gtk::Label {
-                    #[watch]
-                    set_label: &model.results.iter().map(|app| app.name.as_str()).collect::<Vec<_>>().join("\n"),
-                    set_xalign: 0.0,
+                #[name(results_list)]
+                gtk::ListBox {
+                    set_selection_mode: gtk::SelectionMode::None
                 }
+
+                // gtk::Label {
+                //     #[watch] // so we refresh the widget everytime the model updates!
+                //     set_label: &model.results.iter().map(|app| app.name.as_str()).collect::<Vec<_>>().join("\n"),
+                //     set_xalign: 0.0,
+                // }
             }
+        }
+    }
+
+    fn post_view() {
+        while let Some(child) = widgets.results_list.first_child() {
+            widgets.results_list.remove(&child);
+        }
+
+        for app in &self.results {
+            let label = gtk::Label::new(Some(&app.name));
+            widgets.results_list.append(&label);
         }
     }
 
