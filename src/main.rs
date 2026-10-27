@@ -1,13 +1,13 @@
 use gtk::prelude::*;
-use relm4::{
-    gtk::{MessageType::Question, gio::FileQueryInfoFlags},
-    prelude::*,
+use relm4::prelude::*;
+use sight::{
+    app::AppEntry, desktop::discovery::discover_apps, launch::launch_app, search::search_apps,
 };
-use sight::{app::AppEntry, desktop::discovery::discover_apps, search::search_apps};
 
 #[derive(Debug)]
 enum SightInput {
     SearchChanges(String),
+    LaunchSelected(usize),
 }
 
 struct Sight {
@@ -46,14 +46,11 @@ impl SimpleComponent for Sight {
 
                 #[name(results_list)]
                 gtk::ListBox {
-                    set_selection_mode: gtk::SelectionMode::None
+                    set_selection_mode: gtk::SelectionMode::Single,
+                    connect_row_activated[sender] => move |_list, row| {
+                        sender.input(SightInput::LaunchSelected(row.index() as usize));
+                    },
                 }
-
-                // gtk::Label {
-                //     #[watch] // so we refresh the widget everytime the model updates!
-                //     set_label: &model.results.iter().map(|app| app.name.as_str()).collect::<Vec<_>>().join("\n"),
-                //     set_xalign: 0.0,
-                // }
             }
         }
     }
@@ -64,7 +61,14 @@ impl SimpleComponent for Sight {
         }
 
         for app in &self.results {
+            let row_content = gtk::Box::new(gtk::Orientation::Horizontal, 12);
+
+            // creating label for each app
             let label = gtk::Label::new(Some(&app.name));
+            label.set_xalign(0.0); // set the app names to left
+            label.set_hexpand_set(true);
+
+            // append the label to the gtk widget
             widgets.results_list.append(&label);
         }
     }
@@ -92,6 +96,14 @@ impl SimpleComponent for Sight {
                     .into_iter()
                     .cloned()
                     .collect();
+            }
+
+            SightInput::LaunchSelected(index) => {
+                if let Some(app) = self.results.get(index) {
+                    if let Err(error) = launch_app(&app.command) {
+                        eprint!("failed to lauch {}: {}", app.name, error);
+                    }
+                }
             }
         }
     }
