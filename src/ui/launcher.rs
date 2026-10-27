@@ -99,12 +99,17 @@ impl SimpleComponent for Sight {
         _root: Self::Root,
         sender: ComponentSender<Self>,
     ) -> ComponentParts<Self> {
+        let apps = discover_apps();
+
         let model = Sight {
             query: String::new(),
-            apps: discover_apps(),
-            results: Vec::new(),
+            results: apps.clone(),
+            apps,
         };
         let widgets = view_output!();
+
+        // well use this explicit trigger to refresh the apps so taht we see all apps on lauch
+        sender.input(SightInput::SearchChanges(String::new()));
 
         ComponentParts { model, widgets }
     }
