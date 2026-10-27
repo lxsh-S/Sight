@@ -1,5 +1,7 @@
 # Sight
 
+<img width="899" height="1076" alt="2026-10-27-212605_impasto" src="https://github.com/user-attachments/assets/c84ee446-6705-40ee-bd53-ce2b02e88e8e" />
+
 A hyprland app launcher written in rust. Learning rust while making something I'll be using in my rice!
 
 ## Overview
