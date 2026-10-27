@@ -1,6 +1,6 @@
 use gtk::prelude::*;
 use relm4::{
-    gtk::{MessageType::Question, gio::FileQueryInfoFlags},
+    // gtk::{MessageType::Question, gio::FileQueryInfoFlags},
     prelude::*,
 };
 use sight::{app::AppEntry, desktop::discovery::discover_apps, search::search_apps};
@@ -13,6 +13,7 @@ enum SightInput {
 struct Sight {
     query: String,
     apps: Vec<AppEntry>,
+    results: Vec<AppEntry>,
 }
 
 #[relm4::component]
@@ -37,7 +38,7 @@ impl SimpleComponent for Sight {
                 },
 
                 gtk::Entry {
-                    set_placeholder_text: Some("Search applications...."),
+                    set_placeholder_text: Some("Sight sending data to china :>"),
                     connect_changed[sender] => move |entry| {
                         sender.input(SightInput::SearchChanges(entry.text().to_string()));
                     },
@@ -54,6 +55,7 @@ impl SimpleComponent for Sight {
         let model = Sight {
             query: String::new(),
             apps: discover_apps(),
+            results: Vec::new(),
         };
         let widgets = view_output!();
 
@@ -64,7 +66,10 @@ impl SimpleComponent for Sight {
         match message {
             SightInput::SearchChanges(query) => {
                 self.query = query;
-                search_apps(&self.apps, &self.query);
+                self.results = search_apps(&self.apps, &self.query) // get the resulting apps after searching
+                    .into_iter()
+                    .cloned()
+                    .collect();
             }
         }
     }
