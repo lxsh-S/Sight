@@ -43,6 +43,12 @@ impl SimpleComponent for Sight {
                         sender.input(SightInput::SearchChanges(entry.text().to_string()));
                     },
                 },
+
+                gtk::Label {
+                    #[watch]
+                    set_label: &model.results.iter().map(|app| app.name.as_str()).collect::<Vec<_>>().join("\n"),
+                    set_xalign: 0.0,
+                }
             }
         }
     }
