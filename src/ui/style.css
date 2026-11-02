@@ -1,0 +1,53 @@
+window {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+  border-radius: 16px;
+}
+
+.title-1 {
+  color: #cba6f7;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+entry {
+  background-color: #313244;
+  color: #cdd6f4;
+  border: 1px solid #585b70;
+  border-radius: 10px;
+  padding: 12px;
+  caret-color: #cda6f7;
+  box-shadow: none;
+}
+
+entry:focus {
+  border-color: #cda6f7;
+}
+
+scrolledwindow {
+  background: transparent;
+  border: none;
+}
+
+list {
+  background: transparent;
+}
+
+row {
+  background: transparent;
+  color: #cdd6f4;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 2px 0;
+}
+
+row:selected {
+  background-color: #45475a;
+  color: #cba67f;
+}
+
+label {
+  color: inherit
+}
+
