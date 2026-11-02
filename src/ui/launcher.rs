@@ -114,7 +114,7 @@ impl SimpleComponent for Sight {
         ComponentParts { model, widgets }
     }
 
-    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
+    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>, root: &Self::Root,) {
         match message {
             SightInput::SearchChanges(query) => {
                 self.query = query;
@@ -126,18 +126,26 @@ impl SimpleComponent for Sight {
 
             SightInput::LaunchSelected(index) => {
                 if let Some(app) = self.results.get(index) {
-                    if let Err(error) = launch_app(&app.command) {
-                        eprint!("failed to lauch {}: {}", app.name, error);
-                    }
+                   match launch_app(&app.command) {
+                        Ok(()) => self.window.close(), 
+                        Err(error) => {
+                            eprintln!("failed to lauch {}: {}", app.name, error);
+                        }
+                   }
                 }
+
             }
 
             SightInput::LaunchFirst => {
                 if let Some(app) = self.results.first() {
-                    if let Err(error) = launch_app(&app.command) {
-                        eprint!("failed to lauch {}: {}", app.name, error);
-                    }
+                   match launch_app(&app.command) {
+                        Ok(()) => self.window.close(); 
+                        Err(error) => {
+                            eprintln!("failed to lauch {}: {}", app.name, error);
+                        }
+                   } 
                 }
+
             }
         }
     }
