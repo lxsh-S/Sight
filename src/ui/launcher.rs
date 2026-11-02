@@ -28,7 +28,7 @@ impl SimpleComponent for Sight {
         #[name(window)]
         gtk::Window {
             set_title: Some("Sight"),
-            set_default_size: (500, 400),
+            set_default_size: (400, 400),
 
             gtk::Box {
                 set_orientation: gtk::Orientation::Vertical,
@@ -158,6 +158,6 @@ pub fn run() {
     let app = RelmApp::new("dev.lxsh.sight");
     
     load_css();
-
+    
     app.run::<Sight>(());
 }

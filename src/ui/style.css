@@ -26,7 +26,7 @@ entry:focus {
 }
 
 scrolledwindow {
-  background: transparent;
+  background: #292c3c;
   border: none;
 }
 
@@ -44,7 +44,7 @@ row {
 
 row:selected {
   background-color: #45475a;
-  color: #cba67f;
+  color: #e78284;
 }
 
 label {
