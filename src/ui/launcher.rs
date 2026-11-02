@@ -143,7 +143,21 @@ impl SimpleComponent for Sight {
     }
 }
 
+// we'll load the css file to gtk
+fn load_css() {
+    let provider = gtk::CssProvider::new();
+
+    provider.load_from_path("src/ui/style.css");
+
+    gtk::style_context_add_provider_for_display(&gtk::gdk::Display::default().expect("No display foound"),
+    &provider,
+    gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,);
+}
+
 pub fn run() {
     let app = RelmApp::new("dev.lxsh.sight");
+    
+    load_css();
+
     app.run::<Sight>(());
 }
