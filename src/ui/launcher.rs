@@ -42,6 +42,7 @@ impl SimpleComponent for Sight {
                     set_css_classes: &["title-1"],
                 },
 
+                #[name(search_entry)]
                 gtk::Entry {
                     set_placeholder_text: Some("Sight sending data to china :>"),
                     connect_changed[sender] => move |entry| {
@@ -132,8 +133,7 @@ impl SimpleComponent for Sight {
     fn init(
         _init: Self::Init,
         _root: Self::Root,
-        sender: ComponentSender<Self>,
-    ) -> ComponentParts<Self> {
+        sender: ComponentSender<Self>,) -> ComponentParts<Self> {
         let apps = discover_apps();
 
         let model = Sight {
@@ -143,6 +143,48 @@ impl SimpleComponent for Sight {
             should_close: false,
         };
         let widgets = view_output!();
+
+        let key_controller = gtk::EventControllerKey::new();
+
+        key_controller.set_propagation_phase(gtk::PropagationPhase::Capture);
+
+        let search_entry = widgets.search_entry.clone();
+
+        key_controller.connect_key_pressed(move |_, key, _, modifiers| {
+            if search_entry.has_focus() {
+                return gtk::glib::Propagation::Proceed;
+            }
+        
+        
+        // we'll ignore shortcuts involving ctrl, alt and super [win]
+        if modifiers.intersects(
+                gtk::gdk::ModifierType::CONTROL_MASK | gtk::gdk::ModifierType::ALT_MASK | gtk::gdk::ModifierType::SUPER_MASK,
+        ) {
+            return gtk::glib::Propagation::Proceed;
+        }
+
+        if key == gtk::gdk::Key::BackSpace {
+            let mut text = search_entry.text().to_string();
+            text.pop();
+            search_entry.set_text(&text);
+
+            return gtk::glib::Propagation::Stop;
+        }
+
+        if let Some(character) = key.to_unicode() {
+            if !character.is_control() {
+                let mut text = search_entry.text().to_string();
+                text.push(character);
+                search_entry.set_text(&text);
+
+                return gtk::glib::Propagation::Stop;
+            }
+        }
+
+        gtk::glib::Propagation::Proceed
+    });
+
+        widgets.search_entry.grab_focus();
 
         // well use this explicit trigger to refresh the apps so taht we see all apps on lauch
         sender.input(SightInput::SearchChanges(String::new()));
