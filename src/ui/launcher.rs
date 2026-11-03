@@ -184,6 +184,9 @@ impl SimpleComponent for Sight {
         gtk::glib::Propagation::Proceed
     });
 
+        // well attach the controller to the window
+        widgets.window.add_controller(key_controller);
+
         widgets.search_entry.grab_focus();
 
         // well use this explicit trigger to refresh the apps so taht we see all apps on lauch
