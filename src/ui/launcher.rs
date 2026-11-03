@@ -101,6 +101,30 @@ impl SimpleComponent for Sight {
             // append the label to the gtk widget
             row_content.append(&label);
             widgets.results_list.append(&row_content);
+
+            // a container for app name and descriptions!
+            let text_box = gtk::Box::new(gtk::Orientation::Vertical, 3);
+
+            // App name -> bold
+            let name_label = gtk::Label::new(Some(&app.name));
+            name_label.set_xalign(0.0);
+            name_label.set_hexpand(true);
+            name_label.add_css_class("app-name");
+
+            text_box.append(&name_label);
+
+            // app description
+            if !app.description.is_empty() {
+                let description_label = gtk::Label::new(Some(&app.description));
+                description_label.set_xalign(0.0);
+                description_label.set_hexpand(true);
+                description_label.add_css_class("app-descripton");
+
+                text_box.append(&description_label);
+            }
+
+            row_content.append(&text_box);
+            widgets.results_list.append(&row_content);
         }
 
         // by default we select the first app for ease of use
