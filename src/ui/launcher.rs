@@ -29,7 +29,7 @@ impl SimpleComponent for Sight {
         #[name(window)]
         gtk::Window {
             set_title: Some("Sight"),
-            set_default_size: (400, 400),
+            set_default_size: (500, 600),
 
             gtk::Box {
                 set_orientation: gtk::Orientation::Vertical,
