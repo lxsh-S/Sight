@@ -18,6 +18,9 @@ pub fn discover_apps() -> Vec<AppEntry> {
 
             let command = entry.parse_exec().ok()?;
 
+            // icons
+            let icon = entry.icon().map(|icon| icon.to_owned());
+
             let name = entry.name(&locales)?.into_owned(); // we use owned string in our
             // AppEntry
 
@@ -31,6 +34,7 @@ pub fn discover_apps() -> Vec<AppEntry> {
                 command,
                 name,
                 description,
+                icon,
             })
         })
         .collect()

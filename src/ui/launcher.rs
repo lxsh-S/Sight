@@ -79,6 +79,20 @@ impl SimpleComponent for Sight {
         for app in &self.results {
             let row_content = gtk::Box::new(gtk::Orientation::Horizontal, 12);
 
+
+            // Apllication icon
+            let icon = match &app.icon {
+            
+                Some(icon_name) if std::path::Path::new(icon_name).is_absolute() => {
+                    gtk::Image::from_file(icon_name)
+                }
+                Some(icon_name) => gtk::Image::from_icon_name(icon_name),
+                None => gtk::Image::from_icon_name("application-x-executable"),
+            };
+
+            icon.set_pixel_size(32);
+            row_content.append(&icon);
+
             // creating label for each app
             let label = gtk::Label::new(Some(&app.name));
             label.set_xalign(0.0); // set the app names to left

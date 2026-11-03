@@ -5,4 +5,5 @@ pub struct AppEntry {
     pub command: Vec<String>, //
     pub name: String,
     pub description: String,
+    pub icon: Option<String>,
 }
