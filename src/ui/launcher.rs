@@ -16,6 +16,7 @@ struct Sight {
     query: String,
     apps: Vec<AppEntry>,
     results: Vec<AppEntry>,
+    should_close: bool,
 }
 
 #[relm4::component]
@@ -92,6 +93,10 @@ impl SimpleComponent for Sight {
         if let Some(row) = widgets.results_list.row_at_index(0) {
             widgets.results_list.select_row(Some(&row));
         }
+
+        if self.should_close {
+            widgets.window.close();
+        }
     }
 
     fn init(
@@ -105,6 +110,7 @@ impl SimpleComponent for Sight {
             query: String::new(),
             results: apps.clone(),
             apps,
+            should_close: false,
         };
         let widgets = view_output!();
 
@@ -114,7 +120,7 @@ impl SimpleComponent for Sight {
         ComponentParts { model, widgets }
     }
 
-    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>, root: &Self::Root,) {
+    fn update(&mut self, message: Self::Input, _sender: ComponentSender<Self>) {
         match message {
             SightInput::SearchChanges(query) => {
                 self.query = query;
@@ -127,7 +133,7 @@ impl SimpleComponent for Sight {
             SightInput::LaunchSelected(index) => {
                 if let Some(app) = self.results.get(index) {
                    match launch_app(&app.command) {
-                        Ok(()) => self.window.close(), 
+                        Ok(()) => self.should_close = true, 
                         Err(error) => {
                             eprintln!("failed to lauch {}: {}", app.name, error);
                         }
@@ -139,7 +145,7 @@ impl SimpleComponent for Sight {
             SightInput::LaunchFirst => {
                 if let Some(app) = self.results.first() {
                    match launch_app(&app.command) {
-                        Ok(()) => self.window.close(); 
+                        Ok(()) => self.should_close = true,
                         Err(error) => {
                             eprintln!("failed to lauch {}: {}", app.name, error);
                         }
