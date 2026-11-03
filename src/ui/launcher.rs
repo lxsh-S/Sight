@@ -79,10 +79,10 @@ impl SimpleComponent for Sight {
         for app in &self.results {
             let row_content = gtk::Box::new(gtk::Orientation::Horizontal, 12);
 
+            row_content.set_hexpand(true);
 
             // Apllication icon
             let icon = match &app.icon {
-            
                 Some(icon_name) if std::path::Path::new(icon_name).is_absolute() => {
                     gtk::Image::from_file(icon_name)
                 }
@@ -93,14 +93,6 @@ impl SimpleComponent for Sight {
             icon.set_pixel_size(32);
             row_content.append(&icon);
 
-            // creating label for each app
-            let label = gtk::Label::new(Some(&app.name));
-            label.set_xalign(0.0); // set the app names to left
-            label.set_hexpand(true);
-
-            // append the label to the gtk widget
-            row_content.append(&label);
-            widgets.results_list.append(&row_content);
 
             // a container for app name and descriptions!
             let text_box = gtk::Box::new(gtk::Orientation::Vertical, 3);
