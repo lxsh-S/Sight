@@ -51,3 +51,14 @@ label {
   color: inherit
 }
 
+.app-name {
+  color: #cdd6f4;
+  font-size:14px;
+  font-weight: bold;
+}
+
+.app-descripton {
+  color: #a6adc8;
+  font-size: 11px;
+}
+
