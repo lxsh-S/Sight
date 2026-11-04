@@ -39,7 +39,18 @@ local menu = "sight-launcher"
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 ```
 - You also would need to write a window rule for the launcher
+```
+windowrule {
+    name = sight-launcher
+    match:class = ^(dev\.lxsh\.sight)$
 
+    float = on
+    center = on
+    size = 500 600
+    stay_focused = on
+    pin = on
+}
+```
 
 
 ## Configure with Gnome and Kde
