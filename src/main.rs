@@ -1,3 +1,3 @@
 fn main() {
-    sight::ui::launcher::run();
+    sight_launcher::ui::launcher::run();
 }
