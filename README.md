@@ -72,10 +72,10 @@ Feel free to customize the shortcut keys!
 - find `View and customize shortcuts` -> `Custom shortcuts`
 - Add a new shortcut
 
-! [Sight Launcher Gnome](assets/gnome.png)
+![Sight Launcher Gnome](assets/gnome.png)
 
 ### Kde Plasma
 - Open `System settings` -> `keyboard` -> `shortcuts`
 - Add a new `command` shortcut
 
-! [Sight Launcher Gnome](gnome.png)
+![Sight Launcher Gnome](gnome.png)
