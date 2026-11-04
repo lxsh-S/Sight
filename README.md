@@ -1,9 +1,7 @@
 # Sight
-
-<img width="899" height="1076" alt="2026-10-27-212605_impasto" src="https://github.com/user-attachments/assets/c84ee446-6705-40ee-bd53-ce2b02e88e8e" />
-
 An app launcher written in rust.
-
+Current rice!!
+![Sight Launcher Hyprland](assets/hyprland.png)
 ## Overview
 
 `Sight` is a simple lightweight gtk launcher that searches for applications on your linux machine and lets you run whatever application you choose to from the app menu by searching or moving through with the arrow keys (just like how app launchers work!)
@@ -73,9 +71,11 @@ Feel free to customize the shortcut keys!
 - Open `settings` -> `keyboard`
 - find `View and customize shortcuts` -> `Custom shortcuts`
 - Add a new shortcut
-![Uploading Screenshot From 2026-11-04 20-27-16.png…]()
+
+! [Sight Launcher Gnome](assets/gnome.png)
 
 ### Kde Plasma
 - Open `System settings` -> `keyboard` -> `shortcuts`
 - Add a new `command` shortcut
-![Uploading Screenshot From 2026-11-03 21-50-40.png…]()
+
+! [Sight Launcher Gnome](gnome.png)
