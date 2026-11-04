@@ -6,7 +6,7 @@ description = "A simple lightweight GTK4 application laucher for linux"
 license = "MIT"
 repository = "https://github.com/lxsh-S/Sight"
 readme = "README.md"
-keywords = ["launcher", "gtk", "hyprland", "gnome", "kde", "linux"]
+keywords = ["launcher", "gtk", "hyprland", "gnome", "kde"]
 categories = ["command-line-utilities"]
 
 [dependencies]
