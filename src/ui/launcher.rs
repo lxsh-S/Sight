@@ -236,7 +236,7 @@ impl SimpleComponent for Sight {
 fn load_css() {
     let provider = gtk::CssProvider::new();
 
-    provider.load_from_path("src/ui/style.css");
+    provider.load_from_data(include_str!("style.css"));
 
     gtk::style_context_add_provider_for_display(&gtk::gdk::Display::default().expect("No display foound"),
     &provider,

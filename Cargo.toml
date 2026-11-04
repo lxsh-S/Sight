@@ -2,6 +2,12 @@
 name = "sight"
 version = "0.1.0"
 edition = "2024"
+description = "A simple lightweight GTK4 application laucher for linux"
+license = "MIT"
+repository = "https:://github.com/lxsh-S/Sight"
+readme = "README.md"
+keywords = ["launcher", "gtk", "hyprland", "gnome", "kde", "linux"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 freedesktop-desktop-entry = "0.8.4"
