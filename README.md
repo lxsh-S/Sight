@@ -21,7 +21,42 @@ cargo build
 ```
 
 ## INSTALLATION
+> Note: `sight` is named as `sight-launcher` when installing using cargo  
+- Currently `sight` can only be installed via cargo: https://crates.io/crates/sight-launcher (or)
+```
+cargo install sight-launcher
+```
 
-- Will be adding it to the AUR
-- Will also be available on crates.io
-- And also on the releases page
+
+## Configure with Hyprland
+Add this to your autostart.lua or `hyprland.lua` if you wanna keep things in one file:
+- set a variable
+```
+local menu = "sight-launcher"
+```
+- Add a keybind `:P`
+```
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
+```
+
+## Configure with Gnome and Kde
+
+I recommend:
+
+Setting | Value |
+|---|---|
+| Name | Sight |
+| Command | `sight-launcher` |
+| Shortcut | `Super + R` | 
+
+Feel free to customize the shortcut keys!
+
+### Gnome
+- Open `settings` -> `keyboard`
+- find `View and customize shortcuts` -> `Custom shortcuts`
+- Add a new shortcut
+
+### Kde Plasma
+- Open `System settings` -> `keyboard` -> `shortcuts`
+- Add a new `command` shortcut
+
