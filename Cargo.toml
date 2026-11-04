@@ -1,5 +1,5 @@
 [package]
-name = "sight"
+name = "sight-launcher"
 version = "0.1.0"
 edition = "2024"
 description = "A simple lightweight GTK4 application laucher for linux"
