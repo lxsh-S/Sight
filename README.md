@@ -38,6 +38,9 @@ local menu = "sight-launcher"
 ```
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 ```
+- You also would need to write a window rule for the launcher
+
+
 
 ## Configure with Gnome and Kde
 
@@ -55,8 +58,9 @@ Feel free to customize the shortcut keys!
 - Open `settings` -> `keyboard`
 - find `View and customize shortcuts` -> `Custom shortcuts`
 - Add a new shortcut
+![Uploading Screenshot From 2026-11-04 20-27-16.png…]()
 
 ### Kde Plasma
 - Open `System settings` -> `keyboard` -> `shortcuts`
 - Add a new `command` shortcut
-
+![Uploading Screenshot From 2026-11-03 21-50-40.png…]()
