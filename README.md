@@ -78,4 +78,4 @@ Feel free to customize the shortcut keys!
 - Open `System settings` -> `keyboard` -> `shortcuts`
 - Add a new `command` shortcut
 
-![Sight Launcher Gnome](gnome.png)
+![Sight Launcher Gnome](assets/kde.png)
