@@ -40,16 +40,20 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 ```
 - You also would need to write a window rule for the launcher
 ```
-windowrule {
-    name = sight-launcher
-    match:class = ^(dev\.lxsh\.sight)$
+overlayLayerRule:set_enabled(false)
 
-    float = on
-    center = on
-    size = 500 600
-    stay_focused = on
-    pin = on
-}
+hl.window_rule({
+    name = "sight-launcher",
+    match = {
+        class = "^(dev\\.lxsh\\.sight)$",
+    },
+
+    float = true,
+    center = true,
+    size = "500 600",
+    stay_focused = true,
+    pin = true,
+})
 ```
 
 
