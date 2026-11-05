@@ -1,4 +1,5 @@
 # Sight
+> for reviewer: I had cleaned up code from main.rs to diffrent files in some commit thats why it shows 4hrs on the main.rs file you can find that commit with the appropriate msg too 
 An app launcher written in rust.
 Current rice!!
 ![Sight Launcher Hyprland](assets/hyprland.png)
